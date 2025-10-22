@@ -1,195 +1,235 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
-
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Goodluck Emmanuel | Web Developer Portfolio</title>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+:root{
+  --bg-dark:#071431;
+  --bg-mid:#08305a;
+  --card:rgba(255,255,255,0.04);
+  --accent:#4fd1ff;
+  --accent-2:#1d6fff;
+  --muted:#b8d5ea;
+  --text:#eaf6ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:Inter, Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background:linear-gradient(120deg,var(--bg-dark),var(--bg-mid));
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-y:auto;
+  -webkit-font-smoothing:antialiased;
+}
 
-  <meta charset="UTF-8" />
+/* animated subtle background */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(600px 400px at 10% 20%, rgba(79,209,255,0.06), transparent 8%),
+    radial-gradient(500px 400px at 90% 80%, rgba(29,111,255,0.04), transparent 8%);
+  pointer-events:none;mix-blend-mode:overlay;animation: drift 20s ease-in-out infinite;
+}
+@keyframes drift{0%{transform:translateY(0)}50%{transform:translateY(-4%)}100%{transform:translateY(0)}}
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+/* nav */
+nav{
+  position:sticky;top:0;z-index:60;
+  display:flex;gap:12px;justify-content:center;padding:12px 14px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px);
+}
+nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:7px 10px;border-radius:8px}
+nav a:hover, nav a.active{color:var(--accent);background:rgba(79,209,255,0.04)}
 
-  <title>Goodluck Emmanuel | Portfolio</title>
+/* layout */
+.container{max-width:1100px;margin:36px auto;padding:0 18px;position:relative;z-index:10}
+.hero{display:grid;grid-template-columns:1fr 360px;gap:26px;align-items:center;margin-bottom:28px}
+.intro{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:26px;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.45)}
+.tag{color:var(--accent-2);font-weight:700;margin-bottom:8px}
+h1{color:var(--accent);font-size:2.1rem;margin-bottom:6px}
+.lead{color:var(--muted);line-height:1.6;margin-bottom:14px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042038;font-weight:700;text-decoration:none}
+.btn.ghost{display:inline-block;padding:10px 16px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);font-weight:700;text-decoration:none}
 
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<link rel="stylesheet" href="./style.css" />
+/* profile */
+.profile{background:var(--card);padding:18px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 12px 30px rgba(0,0,0,0.55)}
+.profile img{width:170px;height:170px;border-radius:50%;object-fit:cover;border:3px solid rgba(79,209,255,0.06)}
+.profile h3{color:var(--accent);font-size:1.05rem}
+.profile .meta{color:var(--muted);font-weight:600}
+
+section{padding:34px 0;border-top:1px solid rgba(255,255,255,0.02)}
+section h2{text-align:center;color:var(--accent);margin-bottom:18px;font-size:1.4rem}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;max-width:900px;margin:12px auto}
+.skill{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;text-align:center;color:var(--muted);font-weight:700}
+
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}
+.card{background:var(--card);padding:14px;border-radius:10px;cursor:pointer;transition:transform .25s ease, box-shadow .25s;box-shadow:0 10px 28px rgba(0,0,0,0.55)}
+.card:hover{transform:translateY(-10px);box-shadow:0 26px 60px rgba(0,60,120,0.08)}
+.card h3{color:var(--accent);margin-bottom:8px}
+.meta{color:var(--muted);font-weight:600}
+
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+.test{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:12px;border-radius:10px}
+.test p{color:#dff4ff;margin-bottom:10px;font-style:italic}
+.who{color:var(--accent);font-weight:700}
+
+.contact-grid{display:grid;grid-template-columns:1fr 360px;gap:14px;align-items:start;margin-top:10px}
+.contact-card{background:var(--card);padding:16px;border-radius:10px}
+.links a{color:var(--accent);text-decoration:none;display:inline-block;margin-bottom:6px}
+.note{color:var(--muted);margin-top:8px;font-size:0.95rem}
+
+.footer{padding:18px;text-align:center;color:#9fbfdc;margin-top:22px;border-top:1px solid rgba(255,255,255,0.02)}
+
+/* modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(3,7,18,0.7);z-index:200;opacity:0;pointer-events:none;transition:opacity .18s}
+.modal.open{opacity:1;pointer-events:auto}
+.modal-content{background:var(--card);padding:18px;border-radius:12px;max-width:860px;width:92%;box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+.modal-content img{width:100%;border-radius:10px;margin-bottom:12px}
+.close{position:absolute;right:18px;top:14px;cursor:pointer;color:var(--accent)}
+
+@media(max-width:980px){.hero{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.profile img{width:140px;height:140px}}
+@media(max-width:560px){nav{gap:8px;padding:8px}h1{font-size:1.7rem}}
+/* small animated touches */
+.fade-in { animation: fadeInUp .7s ease both; }
+@keyframes fadeInUp { from { opacity:0; transform: translateY(10px) } to { opacity:1; transform:none } }
+</style>
+
 </head>
-
 <body>
+<nav>
+  <a href="#home" class="active">Home</a>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#testimonials">Testimonials</a>
+  <a href="#contact">Contact</a>
+  <a href="https://github.com/Goodie-8" target="_blank" style="margin-left:8px;color:var(--muted);font-weight:700">GitHub</a>
+</nav>
 
-  <header>
+<div class="container" id="home">
+  <div class="hero" data-aos="fade-up">
+    <div class="intro" data-aos="fade-right">
+      <div class="tag">Frontend Developer • UI Specialist</div>
+      <h1>Goodluck Emmanuel</h1>
+      <p class="lead">I design and build modern, responsive websites and interactive frontends — clean code, great UX, fast performance.</p>
 
-    <nav class="navbar">
-
-      <h1 class="logo">Goodluck Emmanuel</h1>
-
-      <button id="theme-toggle">🌞</button>
-
-      <button id="hamburger">☰</button>
-
-      <ul id="nav-menu">
-
-        <li><a href="#home">Home</a></li>
-
-        <li><a href="#about">About</a></li>
-
-        <li><a href="#projects">Projects</a></li>
-
-        <li><a href="#testimonials">Testimonials</a></li>
-
-        <li><a href="#contact">Contact</a></li>
-
-      </ul>
-
-    </nav>
-
-  </header>
-
-  <main>
-
-    <section id="home" class="hero">
-       
-      <section class="profile section">
-        <div class="profile picture">
-      <img src="https://i.postimg.cc/D01m7nFb/IMG-20251006-WA0266-2.jpg" alt="Profile Picture">
-          </div>
-
-    
-      <h2 data-aos="fade-up">Hi, I'm <span>Goodluck Emmanuel</span></h2>
-
-      <p data-aos="fade-up" data-aos-delay="100">
-
-        A passionate <strong>Graphic Designer & Frontend Developer</strong> focused on creative visuals and clean web experiences.
-
-      </p>
-
-      <a href="#projects" class="btn" data-aos="zoom-in">View My Work</a>
-
-    </section>
-
-    <section id="about" class="about" data-aos="fade-up">
-
-      <h2>About Me</h2>
-
-      <p>
-
-        I’m a designer and developer with a keen eye for aesthetics, balance, and detail.  
-
-        I create visuals and websites that are clean, modern, and functional.
-
-      </p>
-
-      <div class="skills">
-
-        <span>HTML</span>
-
-        <span>CSS</span>
-
-        <span>JavaScript</span>
-
-        <span>Figma</span>
-
-        <span>Photoshop</span>
-
+      <div class="cta">
+        <a class="btn" href="#projects">View Projects</a>
+        <a class="btn ghost" href="#contact">Contact</a>
       </div>
 
-    </section>
+      <div style="margin-top:14px;color:var(--muted)">
+        <strong style="color:var(--accent)">Experience:</strong> <span style="font-weight:700">1 year</span>
+      </div>
 
-    <section id="projects" class="projects" data-aos="fade-up">
-
-      <h2>My Projects</h2>
-
-      <div class="project-grid">
-
-        <div class="project-card" data-aos="zoom-in">
-
-          <img src="https://via.placeholder.com/400x250" alt="Project 1" />
-
-          <h3>Portfolio Website</h3>
-
-          <p>Responsive personal portfolio showcasing my skills, designs, and contact form.</p>
-
+      <div style="margin-top:12px">
+        <small style="color:var(--muted)">Key tools:</small>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <span style="background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px;color:var(--accent);font-weight:700">HTML</span>
+          <span style="background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px;color:var(--accent);font-weight:700">CSS</span>
+          <span style="background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px;color:var(--accent);font-weight:700">JS</span>
+          <span style="background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px;color:var(--accent);font-weight:700">React</span>
         </div>
+      </div>
+    </div>
 
-        <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+    <aside class="profile" data-aos="fade-left">
+       <img src="https://i.postimg.cc/D01m7nFb/IMG-20251006-WA0266-2.jpg" alt="Profile Picture">
+      <h3>Goodluck Emmanuel</h3>
+      <div class="meta">Frontend Developer — 1 year experience</div>
+      <div style="margin-top:8px;color:var(--muted)">Based in Nigeria • Open for freelance & remote work</div>
+      <div style="margin-top:12px;display:flex;gap:10px">
+        <a class="btn" href="mailto:goodluckelisha21@gmail.com">Email</a>
+        <a class="btn ghost" href="https://wa.me/2348116631415" target="_blank">WhatsApp</a>
+      </div>
+    </aside>
+  </div>
+</div>
 
-          <img src="https://via.placeholder.com/400x250" alt="Project 2" />
+<main class="container">
+  <section id="about" data-aos="fade-up">
+    <h2>About Me</h2>
+    <div style="max-width:1000px;margin:10px auto;color:var(--muted);line-height:1.7" class="fade-in">
+      <p><strong>Goodluck Emmanuel</strong> — I’m a frontend-focused web developer with one year of hands-on experience crafting responsive, accessible, and performant websites. I specialize in turning UI concepts into maintainable, fast, and accessible code using HTML, modern CSS (Grid & Flex), JavaScript (ES6+), and React.</p>
+      <p style="margin-top:8px">I emphasize component-driven development, performance practices (lazy loading, optimized assets), and accessible markup. I’ve built demos and client UIs such as trading dashboards, content platforms, and small e-commerce frontends. I’m always learning and improving my craft.</p>
+    </div>
 
-          <h3>Logo Design</h3>
+    <div class="skills-grid" data-aos="fade-up" data-aos-delay="80">
+      <div class="skill">HTML <small style="display:block;font-weight:400">Accessible markup</small></div>
+      <div class="skill">CSS <small style="display:block;font-weight:400">Responsive & animations</small></div>
+      <div class="skill">JavaScript <small style="display:block;font-weight:400">ES6+</small></div>
+      <div class="skill">React <small style="display:block;font-weight:400">SPA & components</small></div>
+      <div class="skill">Git <small style="display:block;font-weight:400">Version control</small></div>
+      <div class="skill">Design <small style="display:block;font-weight:400">Figma & handoff</small></div>
+    </div>
+  </section>
 
-          <p>Creative, modern logo designs tailored to brand identity and message.</p>
+  <section id="projects" data-aos="fade-up">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="card" data-id="elite">
+        <h3>💹 Elite Traders</h3>
+        <div class="meta">Trading UI demo • charts & responsive dashboard</div>
+      </div>
+      <div class="card" data-id="keeppush">
+        <h3>🔥 KeepPushingDaily</h3>
+        <div class="meta">Motivation content app • media grid & animations</div>
+      </div>
+      <div class="card" data-id="nexaurum">
+        <h3>🌐 Nexaurum Tech Studio</h3>
+        <div class="meta">Agency landing • portfolio showcase</div>
+      </div>
+      <div class="card" data-id="portfolio">
+        <h3>📊 Smart Portfolio Dashboard</h3>
+        <div class="meta">Analytics & components • chart-driven UI</div>
+      </div>
+    </div>
+  </section>
+  <!-- Responsive / compressed images: create these files and place beside HTML -->
+<img
+  src="IMG-20250923_compressed_mod.jpg"
+  srcset="
+    IMG-20250923_compressed_small.jpg 480w,
+    IMG-20250923_compressed_mod.jpg 1200w
+  "
+  sizes="(max-width:600px) 480px, 1200px"
+  alt="Photo description"
+  loading="lazy"
+  style="max-width:100%; height:auto; border-radius:12px; display:block;">
 
+  <section id="testimonials" data-aos="fade-up">
+    <h2>Testimonials</h2>
+    <div class="test-grid">
+      <div class="test" data-aos="fade-up">
+        <p>"Goodluck delivered a clean and modern UI quickly — very responsive and professional."</p>
+        <div class="who">— Client (demo)</div>
+      </div>
+      <div class="test" data-aos="fade-up" data-aos-delay="80">
+        <p>"Excellent communication and attention to detail. Highly recommended for frontend tasks."</p>
+        <div class="who">— Demo User</div>
+      </div>
+      <div class="test" data-aos="fade-up" data-aos-delay="160">
+        <p>"Fast turnaround and a great sense for UI polish. Our product looked much better after the redesign."</p>
+
+  <section id="contact" data-aos="fade-up">
+    <h2>Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <p style="color:var(--muted)">Reach out via email, WhatsApp or Telegram. I respond quickly to client and freelance inquiries.</p>
+        <div class="links" style="margin-top:12px">
+          <a href="mailto:goodluckelisha21@gmail.com">goodluckelisha21@gmail.com</a><br>
+          <a href="https://wa.me/2348116631415" target="_blank">WhatsApp: +234 811 663 1415</a><br>
+          <a href="https://t.me/your_telegram_handle" target="_blank">Telegram (replace handle)</a><br>
+          <a href="https://github.com/Goodie-8" target="_blank">GitHub: Goodie-8</a>
         </div>
-
-        <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
-
-          <img src="https://via.placeholder.com/400x250" alt="Project 3" />
-
-          <h3>Landing Page</h3>
-
-          <p>Minimal, fast-loading landing pages built with HTML, CSS, and JS.</p>
-
-        </div>
-
+        <div class="note">Note: GitHub shown as <strong>Goodie-8</strong>. If you want it changed, tell me the correct URL.</div>
       </div>
 
-    </section>
-
-    <section id="testimonials" class="testimonials" data-aos="fade-up">
-
-      <h2>Testimonials</h2>
-
-      <div class="testimonial">
-
-        <p>"Goodluck’s designs transformed our brand look — creative and precise!"</p>
-
-        <span>- Client A</span>
-
-      </div>
-
-      <div class="testimonial">
-
-        <p>"Very reliable and skilled developer. Delivers on time and with style!"</p>
-
-        <span>- Client B</span>
-
-      </div>
-
-    </section>
-
-    <section id="contact" class="contact" data-aos="fade-up">
-
-      <h2>Contact Me</h2>
-
-      <form action="https://formspree.io/f/xnngkjqz" method="POST">
-
-        <label for="name">Name</label>
-
-        <input type="text" name="name" required />
-
-        <label for="email">Email</label>
-
-        <input type="email" name="email" required />
-
-        <label for="message">Message</label>
-
-        <textarea name="message" required></textarea>
-
-        <button type="submit" class="btn">Send</button>
-
-      </form>
-
-    </section>
-
-  </main>
-
-  <footer>
-
-    <p>&copy; 2025 Goodluck Emmanuel. All Rights Reserved.</p>
-
-  </footer>
-
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-</body>
-
-</html>
+      <aside class="profile contact-card" style="align-items:flex></aside>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
